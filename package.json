@@ -1,0 +1,24 @@
+{
+  "name": "twitchblade",
+  "version": "0.1.0",
+  "description": "A TypeScript client for modern Twitch APIs.",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "sideEffects": false,
+  "scripts": {
+    "start": "node --enable-source-maps dist/index.js",
+    "build": "tsc -b .",
+    "build:watch": "tsc -b . --watch",
+    "build:trace": "tsc -p . --incremental false --generateTrace trace && analyze-trace trace --skipMillis 50 --forceMillis 300"
+  },
+  "author": "Hawkbar",
+  "license": "MIT",
+  "devDependencies": {
+    "@typescript/analyze-trace": "^0.10.1",
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "zod": "^4.1.12"
+  }
+}

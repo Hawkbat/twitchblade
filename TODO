@@ -1,0 +1,15 @@
+# TODO
+
+Thread client ID in as a runtime parameter instead of instantiation-time. It can probably be in a big "app config" object with other optional fields like client secret and confidential client status. We should also track the originating client ID for access tokens so those can be checked against the client ID being used to make API calls.
+
+Maybe user and app tokens should also be part of this "authentication context" structure, and consumers can just create copies with the spread operator to override auth when calling endpoints that need a different structure.
+
+Maybe we can validate some of these requirements in the TypeScript types directly to ensure that the values passed to auth flow strategy and Helix API endpoints are not undefined. This would probably mean adding the user/app auth booleans in the endpoint definitions as type parameters.
+
+Rework rate limiting. Rate limits are per-token, and some endpoints have unique rate limiting on top of or in place of the regular Helix rate limits. Maybe instead of tracking them ourselves, we just go off the headers and wait for the reset time no matter what, reporting the rate limiting to a configured callback and/or as a debug log.
+
+We have some unsafe casting of JSON responses. Instead we should be using Zod schemas to rigorously validate.
+
+Implement proper logging. Where possible, bubble up error or status events instead of logging directly in case consumer wants to implement their own logging or retry logic.
+
+Always throw custom errors with consistent error codes instead of generic Errors so consumers can handle failures gracefully.
